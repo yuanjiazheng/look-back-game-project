@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('../1cover.png'); /* 替换为你的背景图片路径 */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+    
+}
+
+@font-face {
+    font-family: 'qusong';
+    src: url(../font/qusong.TTF);
+}
+

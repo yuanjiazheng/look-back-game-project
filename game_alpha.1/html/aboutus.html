@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="Shortcut Icon" href="../../assets/ico/RanaLogo.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AboutUs</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif+SC:wght@200..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        /* 新增折叠相关样式 */
+        .sidebar {
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .sidebar.collapsed {
+            width: 80px;
+        }
+        
+        .sidebar.collapsed #ul1,
+        .sidebar.collapsed #ul2,
+        .sidebar.collapsed .sidebar-text {
+            display: none;
+        }
+        
+        .sidebar.collapsed .toggle-btn {
+            right: -15px;
+        }
+        
+        .toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: right 0.3s ease;
+        }
+        
+        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="sidebar">
+
+            <div class="toggle-btn" onclick="toggleSidebar()">
+                <span id="toggleIcon">→</span>
+            </div>
+            
+            <img src="../picture/teamlogo.png" class="img">
+            <ul id="ul1">
+                <li><a href="aboutus.html">Astralis</a></li>
+                <li style="font-size: 20px;"><a href="#members">成员</a></li>
+            </ul>
+            <ul id="ul2">
+                <li><a href="">朱紫瑞</a></li>
+                <li><a href="">郑彦</a></li>
+                <li><a href="">邱子骞</a></li>
+                <li><a href="">夏千雯</a></li>
+                <li><a href="">张智翔</a></li>
+            </ul>
+        </nav>
+        <div class="main-content ">
+            <div class="content ">
+                <h1>Welcome to team Astralis</h1>
+                <br>
+                <div>
+                    <p>About our members:</p>
+                    
+                </div>
+                <a id="members"></a>
+                <div class="card">
+                    <div class="card-container">
+                        <div class="cards-inner front">
+                            <img src="../picture/Riko.png" alt="Riko" class="w-full h-64 object-cover">
+                            <div>
+                                <div class="h1">朱紫瑞@Riko</div>
+                                <div>组长/程序员/视频剪辑</div>
+                            </div>
+                        </div>
+                     <div class="cards-inner back">
+                            <p>......</p>
+                            <div class="row">
+                                <button onclick="window.location='members/yzn/index.html'">More About...</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-container">
+                        <div class="cards-inner front">
+                            <img src="../picture/zhengyan.png">
+                            <div>
+                                <div class="h1">郑彦@二五仔圆圆</div>
+                                <div>总监/程序员/视频剪辑</div>
+                            </div>
+                        </div>
+                        <div class="cards-inner back">
+                            <p>.....</p>
+                            <div class="row">
+                                <button onclick="window.location='members/jht/index.html'">More About...</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-container">
+                        <div class="cards-inner front">
+                            <img src="../picture/邱子骞.png">
+                            <div>
+                                <div class="h1">邱子骞@一蓑烟雨任平生</div>
+                                <div>剧情设计/美工/程序员</div>
+                            </div>
+                        </div>
+                        <div class="cards-inner back">
+                            <p>....</p>
+                            <div class="row">
+                                <button onclick="window.location='members/sj/index.html'">More About...</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-container">
+                        <div class="cards-inner front">
+                            <img src="../picture/Sen.png">
+                            <div>
+                                <div class="h1">夏千雯@Sen</div>
+                                <div>网站设计/美工/程序员</div>
+                            </div>
+                        </div>
+                        <div class="cards-inner back">
+                            <p>......</p>
+                            <div class="row">
+                                <button onclick="window.location='members/dsk/index.html'">More About...</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-container">
+                        <div class="cards-inner front">
+                            <img src="../picture/Oscar.png">
+                            <div>
+                                <div class="h1">张智翔@Oscar</div>
+                                <div>CIO/网站测试/程序员</div>
+                            </div>
+                        </div>
+                        <div class="cards-inner back">
+                            <p>....</p>
+                            <div class="row">
+                                <button onclick="window.location='members/dsk/index.html'">More About...</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <p>© 2025 Astralia</p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+
+            function toggleSidebar() {
+                const sidebar = document.querySelector('.sidebar');
+                const toggleIcon = document.getElementById('toggleIcon');
+                
+                sidebar.classList.toggle('collapsed');
+                
+                toggleIcon.textContent = sidebar.classList.contains('collapsed') ? '←' : '→';
+            }
+        </script>
+</body>
+
+</html>
