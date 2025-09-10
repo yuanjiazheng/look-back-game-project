@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <style> 
+     
+        .title-container {
+            position: absolute;
+            top: 90px;
+            right: 100px;
+            z-index: 100;
+        }
+        
+        .title-columns {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start; /* 确保顶部对齐方式不影响底部 */
+        }
+        
+        .title-column {
+            display: flex;
+            flex-direction: column;
+            padding: 0.4rem 0.7rem;
+            
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 背景展开元素 */
+        .title-column::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border-radius: 1px;
+            transition: height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: -1;
+            height: 0;
+        }
+        
+        .title-column.expand::before {
+            height: 100%;
+        }
+        
+        .title-char {
+            font-size: 50px;
+            font-weight: bold;
+            color: #000000;
+            padding: 0;
+            margin: 0;
+            line-height: 1.1; /* 增加行高，放大底部错开效果 */
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease-out;
+            position: relative;
+            font-family:'qusong';
+            text-shadow: 10px 8px 2px rgba(255, 71, 138, 0.662);
+        }
+        
+        .title-char.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        
+        /* 核心修改：第二列整体下移并增加额外高度，使底部错开 */
+        .title-column:nth-child(1) {
+            margin-top: 8rem; /* 上边错开 */
+            margin-bottom: -1rem; /* 底部向上缩进，增强错开感 */
+            
+        }
+
+        /* 为不同列的字符设置不同的垂直间距，强化底部错开 */
+        .title-column:nth-child(1) .title-char {
+            margin-bottom: 0.3rem;
+        }
+        
+        .title-column:nth-child(2) .title-char {
+            margin-bottom: 0.5rem;
+            font-size: 70px;
+        }
+
+        .start-btn {
+            /* 字体样式 */
+            font-size: 50px; /* 响应式字体大小 */
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none; 
+            letter-spacing: 2px; /* 字母间距 */
+            margin-top: 380px;
+  
+            display: flex;
+            align-items: center;
+            
+            /* 过渡效果 */
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        /* 悬停效果 */
+        .start-btn:hover {
+            transform: translateY(-5px) scale(1.15);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+            
+        }
+        
+        /* 点击效果 */
+        .start-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+    
+
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+    
+</head>
+<body>
+    <a href="login/login.html" class="start-btn">开始游戏</a>
+
+     <div class="title-container">
+        <div class="title-columns">
+            <div class="title-column" id="column-1"></div>
+            <div class="title-column" id="column-2"></div>
+        </div>
+    </div>
+    
+ <script>
+        // 调整标题文字长度差异，增强底部错开效果
+        const gameTitle = "蓦然回首画镜织梦告别与归程";
+        const splitIndex = 4; // 第一列3个字，第二列3个字（数量相同但底部仍会错开）
+        
+        const column1Text = gameTitle.substring(splitIndex);
+        const column2Text = gameTitle.substring(0, splitIndex);
+        
+        const column1 = document.getElementById('column-1');
+        const column2 = document.getElementById('column-2');
+       
+        const firstColumnSpeed = 150; // 间隔150ms（比默认快）
+        const secondColumnSpeed = 300; 
+       
+        const firstColumnDelayOffset = 1100;
+       
+        function createCharElements(text, container, isFirstColumn = false) {
+            text.split('').forEach((char, index) => {
+                const charElement = document.createElement('div');
+                charElement.textContent = char;
+                charElement.className = 'title-char';
+                const baseDelay = index * (isFirstColumn ? firstColumnSpeed : secondColumnSpeed);
+                // 计算延迟时间：如果是第一列，增加偏移量
+                charElement.dataset.delay = isFirstColumn 
+                    ? baseDelay + firstColumnDelayOffset 
+                    : baseDelay;
+                    
+                container.appendChild(charElement);
+            });
+        }
+        createCharElements(column1Text, column1, true);
+        createCharElements(column2Text, column2);
+
+    
+        
+
+        
+        function showTitleChars() {
+            const chars = document.querySelectorAll('.title-char');
+            const columns = document.querySelectorAll('.title-column');
+            
+            // 第一列背景展开
+            setTimeout(() => {
+                columns[0].classList.add('expand');
+            },900);
+            
+            // 第二列背景展开（稍早于第一列，强化错开节奏）
+            setTimeout(() => {
+                columns[1].classList.add('expand');
+            }, 0); // 固定延迟，与上边错开形成呼应
+            
+            // 逐字显示
+            chars.forEach(char => {
+                setTimeout(() => {
+                    char.classList.add('visible');
+                }, parseInt(char.dataset.delay));
+            });
+        }
+        
+        window.addEventListener('load', showTitleChars);
+    </script>
+
+    
+   
+</body>
+</html>

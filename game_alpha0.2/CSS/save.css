@@ -1,0 +1,62 @@
+body {
+  font-family: "Noto Serif SC", serif;
+  background: #2c3e50;
+  color: #ecf0f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background: #34495e;
+  padding: 20px;
+  border-radius: 12px;
+  width: 500px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.save-card {
+  background: #2c3e50;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+.save-card h2 {
+  margin: 0 0 10px;
+}
+
+button {
+  margin-right: 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #3498db;
+  color: #fff;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+.back-btn {
+  display: block;
+  margin-top: 20px;
+  text-align: center;
+  background: #27ae60;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.back-btn:hover {
+  background: #219150;
+}
