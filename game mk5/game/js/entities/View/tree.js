@@ -1,42 +1,43 @@
-// js/entities/View/tree.js
 class Tree extends Entity {
-    constructor(x, y, width, height) {
-        super(x, y, width, height);
+    constructor(x, y, resourceManager) {
+        super(x, y, 128, 256); 
         this.type = "tree";
-        this.isMarked = false; // 是否被标记为“待砍”
+        this.resourceManager = resourceManager; // ✅ 保存引用
+        this.loadAnimations();
+    }
 
-        // 默认 idle 动画（其实就是一张静态图）
-        if (this.ResourceManager) {
-            const treeSprite = this.ResourceManager.getImage("tree"); 
-            this.animator.addAnimation("idle", treeSprite, width, height, 1, 1);
-            this.animator.play("idle");
+    loadAnimations() {
+        const treeSprite = this.resourceManager.getResource("tree"); // ✅
+        if (treeSprite) {
+            this.animator.addAnimation("idle", new Animation(
+                treeSprite, 128, 256, 1000, [0], true
+            ));
+            this.animator.playAnimation("idle");
+        } else {
+            console.error("树的资源未找到！");
         }
-    }
-
-    // 标记为待砍
-    markForCut() {
-        this.isMarked = true;
-        console.log("Tree marked for cutting:", this);
-    }
-
-    // 取消标记
-    unmark() {
-        this.isMarked = false;
     }
 
     update(deltaTime) {
-        this.animator.update(deltaTime);
+        super.update(deltaTime);
     }
-
     draw(ctx, camera) {
         super.draw(ctx, camera);
 
-        // 如果树被标记，画一个提示（比如红框）
+        // 如果被标记，额外画一个高亮边框/提示
         if (this.isMarked) {
             const screenPos = worldToScreen(this.x, this.y, camera);
-            ctx.strokeStyle = "red";
-            ctx.lineWidth = 3;
+            ctx.save();
+            ctx.strokeStyle = "yellow";
+            ctx.lineWidth = 4;
             ctx.strokeRect(screenPos.x, screenPos.y, this.width, this.height);
+            ctx.restore();
         }
+    }
+
+    // 玩家交互：标记/取消标记树
+    toggleMark() {
+        this.isMarked = !this.isMarked;
+        console.log(`Tree at (${this.x},${this.y}) marked = ${this.isMarked}`);
     }
 }

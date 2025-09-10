@@ -80,6 +80,9 @@ class Game {
 
         this.resourceManager.addResource('RufugeeIdlesheet', 'image', 'image/NPC/RufugeeIdle.png');
         this.resourceManager.addResource('RufugeeWalksheet', 'image', 'image/NPC/RufugeeWalk.png');
+        
+        this.resourceManager.addResource('tree', 'image', 'image/construction/tree.png');
+        
         // 添加其他资源...
         // this.resourceManager.addResource('enemySpritesheet', 'image', 'path/to/enemy/spritesheet.png');
         // this.resourceManager.addResource('background', 'image', 'path/to/background.png');
@@ -132,6 +135,8 @@ class Game {
         // 注册实体到Hitbox系统
         this.hitboxSystem.registerEntity(this.player);
         this.hitboxSystem.registerEntity(this.environment.getGroundEntity());
+
+        this.tree = new Tree(MAP_WIDTH / 2-100, GROUND_Y-50, 10,50)
 
         
         // // 障碍物数组
@@ -216,6 +221,8 @@ class Game {
 
         // 更新摄像机位置
         this.camera.follow(this.player);
+
+        this.tree.update(deltaTime);
     }
     
     //渲染
@@ -253,6 +260,9 @@ class Game {
         
         // 渲染浮动文字系统
         this.floatingTextSystem.render(this.ctx, this.camera);
+
+        this.tree = new Tree(MAP_WIDTH / 2 - 100, GROUND_Y - 150, this.resourceManager);
+
         
         // 绘制金币收集进度
         this.ctx.fillStyle = '#000';

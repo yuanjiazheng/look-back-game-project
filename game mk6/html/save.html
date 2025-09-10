@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>存档管理</title>
+  <link rel="stylesheet" href="../CSS/save.css">
+</head>
+<body>
+  <div class="container">
+    <h1>💾 存档管理</h1>
+    <div id="saves-list"></div>
+    <a href="../html/dashboard.html" class="back-btn">⬅ 返回游戏</a>
+  </div>
+
+  <script>
+    function loadSaves() {
+      const saves = JSON.parse(localStorage.getItem("saves") || "[]");
+      const list = document.getElementById("saves-list");
+      list.innerHTML = "";
+
+      if (saves.length === 0) {
+        list.innerHTML = "<p>没有存档</p>";
+        return;
+      }
+
+      saves.forEach((save, index) => {
+        const div = document.createElement("div");
+        div.className = "save-card";
+        div.innerHTML = `
+          <h2>第 ${save.day} 天</h2>
+          <p>金币：${save.gold}</p>
+          <p>时间：${new Date(save.timestamp).toLocaleString()}</p>
+          <button onclick="loadSave(${index})">载入</button>
+          <button onclick="deleteSave(${index})">删除</button>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function loadSave(index) {
+      const saves = JSON.parse(localStorage.getItem("saves") || "[]");
+      localStorage.setItem("currentSave", JSON.stringify(saves[index]));
+      window.location.href = "../html/dashboard.html"; // 跳转回游戏
+    }
+
+    function deleteSave(index) {
+      let saves = JSON.parse(localStorage.getItem("saves") || "[]");
+      saves.splice(index, 1);
+      localStorage.setItem("saves", JSON.stringify(saves));
+      loadSaves();
+    }
+
+    loadSaves();
+  </script>
+</body>
+</html>
